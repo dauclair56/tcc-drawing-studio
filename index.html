@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cat Connection — Drawing Studio</title>
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+
+<body>
+  <main class="studio">
+
+    <header>
+      <h1>The Cat Connection</h1>
+      <p>Social Media Drawing Studio</p>
+    </header>
+
+    <section class="controls">
+      <label>
+        Featured Cat
+        <input id="catName" type="text" value="Whetus">
+      </label>
+
+      <label>
+        Winner
+        <input id="winnerName" type="text" value="Jane Smith">
+      </label>
+
+      <label>
+        Prize
+        <input id="prizeName" type="text" value="Amazon Gift Card">
+      </label>
+
+      <button id="previewButton">Preview Drawing</button>
+    </section>
+
+    <section class="reel-stage">
+      <div class="reel">
+        <p class="eyebrow">THE CAT CONNECTION PRESENTS</p>
+
+        <h2>Today's Drawing</h2>
+
+        <div class="scene shared-scene">
+  <div class="cat-wrap">
+    <img src="assets/Whetus.jpg" alt="Whetus" class="cat-photo scene-cat">
+    <p>Today's TCC Cat</p>
+    <strong id="catDisplay">Whetus</strong>
+  </div>
+
+  <div class="chest-wrap">
+    <img
+      id="chestImage"
+      src="assets/Moroccan-chest-closed2.png"
+      alt="Moroccan treasure chest"
+      class="chest-photo scene-chest"
+    >
+  </div>
+</div>
+
+  
+        <div id="reveal" class="reveal">
+          <p>Today's Winner</p>
+          <h3 id="winnerDisplay">Jane Smith</h3>
+          <p id="prizeDisplay">Amazon Gift Card</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
