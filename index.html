@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 </head>
 
 <body>
+
   <main class="studio">
 
     <header>
@@ -15,59 +17,315 @@
       <p>Social Media Drawing Studio</p>
     </header>
 
+
     <section class="controls">
+
       <label>
         Featured Cat
-        <input id="catName" type="text" value="Whetus">
+        <input
+          id="catName"
+          type="text"
+          value="Cassava"
+        >
       </label>
+
+
+      <label>
+        Cat Photo
+        <input
+          id="catPhoto"
+          type="file"
+          accept="image/*"
+        >
+      </label>
+
+
+      <label>
+        Cat Size
+        <input
+          id="catSize"
+          type="range"
+          min="60"
+          max="180"
+          value="100"
+        >
+      </label>
+
+
+      <label>
+        Cat Position
+        <input
+          id="catPosition"
+          type="range"
+          min="-40"
+          max="25"
+          value="0"
+        >
+      </label>
+
 
       <label>
         Winner
-        <input id="winnerName" type="text" value="Jane Smith">
+        <input
+          id="winnerName"
+          type="text"
+          value="Jane Smith"
+        >
       </label>
+
 
       <label>
         Prize
-        <input id="prizeName" type="text" value="Amazon Gift Card">
+        <input
+          id="prizeName"
+          type="text"
+          value="Amazon Gift Card"
+        >
       </label>
 
-      <button id="previewButton">Preview Drawing</button>
+
+      <label>
+        Drawing Date
+        <input
+          id="drawingDate"
+          type="text"
+          value="September 1, 2026"
+        >
+      </label>
+
+
+      <button id="previewButton">
+        Preview Drawing
+      </button>
+<button id="downloadButton">
+  Record & Download Reel
+</button>
     </section>
+<details class="instructions">
+
+  <summary>How to Use This Studio</summary>
+
+  <div class="instructions-content">
+
+    <ol>
+      <li>Enter the <strong>Featured Cat</strong> name.</li>
+
+      <li>Click <strong>Cat Photo</strong> and choose the photo you want to use.</li>
+
+      <li>
+        Use <strong>Cat Size</strong> and <strong>Cat Position</strong>
+        to place the cat correctly with the magician's hat and wand.
+      </li>
+
+      <li>
+        Enter the <strong>Winner</strong>, <strong>Prize</strong>,
+        and <strong>Drawing Date</strong>.
+      </li>
+
+      <li>
+        Click <strong>Preview Drawing</strong> and watch the entire reel.
+      </li>
+
+      <li>
+        Make any necessary corrections to the photo placement,
+        names, prize, or date.
+      </li>
+
+      <li>
+        Click <strong>Record & Download Reel</strong>.
+      </li>
+
+      <li>
+        When the browser asks what you want to share,
+        choose <strong>This Tab</strong>.
+      </li>
+
+      <li>
+        Let the reel play all the way through.
+        The finished video will download automatically.
+      </li>
+
+      <li>
+        Save the downloaded video in the appropriate folder
+        and it is ready to post, send, or share.
+      </li>
+    </ol>
+
+    <div class="instructions-notes">
+      <p>
+        <strong>Important:</strong> Always run one complete preview
+        before recording. Cat photos are cropped differently, so the
+        size and position may need to be adjusted for each photo.
+      </p>
+
+      <p>
+        <strong>While recording:</strong> Do not close the tab or
+        navigate away while the button says <strong>Recording...</strong>.
+        Wait for the video to finish and download automatically.
+      </p>
+    </div>
+
+  </div>
+
+</details>
 
     <section class="reel-stage">
-      <div class="reel">
-        <p class="eyebrow">THE CAT CONNECTION PRESENTS</p>
 
-        <h2>Today's Drawing</h2>
+      <div class="reel">
+
+
+        <!-- OPENING LOGO -->
+
+        <img
+          id="openingLogo"
+          src="assets/TCClogo.png"
+          alt="The Cat Connection logo"
+          class="opening-logo"
+        >
+
+
+        <!-- TITLE -->
+
+        <div
+          id="reelTitle"
+          class="reel-title opening-title"
+        >
+
+          <p class="eyebrow">
+            THE CAT CONNECTION
+          </p>
+
+          <h2>
+            Calendar Raffle Drawing
+          </h2>
+
+          <p
+            id="drawingDateDisplay"
+            class="drawing-date"
+          >
+            September 1, 2026
+          </p>
+
+        </div>
+
+
+        <!-- CAT / MAGIC SCENE -->
 
         <div class="scene shared-scene">
-  <div class="cat-wrap">
-    <img src="assets/Whetus.jpg" alt="Whetus" class="cat-photo scene-cat">
-    <p>Today's TCC Cat</p>
-    <strong id="catDisplay">Whetus</strong>
-  </div>
 
-  <div class="chest-wrap">
-    <img
-      id="chestImage"
-      src="assets/Moroccan-chest-closed2.png"
-      alt="Moroccan treasure chest"
-      class="chest-photo scene-chest"
-    >
-  </div>
-</div>
+          <div class="cat-wrap">
 
-  
-        <div id="reveal" class="reveal">
-          <p>Today's Winner</p>
-          <h3 id="winnerDisplay">Jane Smith</h3>
-          <p id="prizeDisplay">Amazon Gift Card</p>
+
+            <!--
+              CAT ADJUSTMENT LAYER
+
+              This layer will allow us to change the apparent
+              size and vertical position of each cat photograph
+              without changing the dimensions of cat-wrap.
+            -->
+
+            <div
+              id="catAdjustmentLayer"
+              class="cat-adjustment-layer"
+            >
+
+              <img
+                id="catImage"
+                src="assets/Cassava png.png"
+                alt="Cassava"
+                class="cat-photo scene-cat"
+              >
+
+            </div>
+
+
+            <!-- MAGIC PROPS -->
+
+            <div class="magic-props">
+
+              <img
+                src="assets/wand.png"
+                alt=""
+                class="magic-wand"
+              >
+
+              <img
+                src="assets/MagicianHat2.png"
+                alt=""
+                class="magic-hat"
+              >
+
+            </div>
+
+
+            <!-- MAGIC SWOOSH -->
+
+            <div class="magic-ribbon"></div>
+
+
+          </div>
+
         </div>
+
+
+        <!-- SUSPENSE TEXT -->
+
+        <div
+          id="suspenseText"
+          class="suspense-text opening-text"
+        >
+          Did you know our cats are magical?!
+        </div>
+
+
+        <!-- MAGIC POOF -->
+
+        <div
+          id="magicPoof"
+          class="magic-poof"
+        ></div>
+
+
+        <!-- WINNER REVEAL -->
+
+        <div
+          id="reveal"
+          class="reveal"
+        >
+
+          <p>
+            Today's Winner
+          </p>
+
+          <h3 id="winnerDisplay">
+            Jane Smith
+          </h3>
+
+          <p id="prizeDisplay">
+            Amazon Gift Card
+          </p>
+
+        </div>
+
+
       </div>
+
     </section>
 
   </main>
 
-  <script src="src/app.js"></script>
+
+  <!-- MUSIC -->
+
+  <audio
+    id="reelMusic"
+    src="assets/magictree.mp3"
+    preload="auto"
+  ></audio>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="src/app.js"></script>
+
 </body>
 </html>

@@ -31,6 +31,9 @@ header p {
   color: #6b5a50;
 }
 
+
+/* CONTROLS */
+
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -55,6 +58,10 @@ header p {
   font-size: 16px;
 }
 
+.controls input[type="range"] {
+  padding: 0;
+}
+
 .controls button {
   padding: 13px 24px;
   border: 0;
@@ -69,6 +76,9 @@ header p {
 .controls button:hover {
   background: #991725;
 }
+
+
+/* REEL */
 
 .reel-stage {
   display: flex;
@@ -85,70 +95,221 @@ header p {
   padding: 42px 28px;
   text-align: center;
   color: white;
-  background:
-    radial-gradient(circle at 50% 65%, #8a3d20 0%, #431b18 35%, #160c10 75%);
+  background: linear-gradient(
+    180deg,
+    #fffaf7 0%,
+    #f8e4df 45%,
+    #df665b 100%
+  );
   box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
 }
 
+
+/* TITLE */
+
 .eyebrow {
   margin: 0;
-  color: #f2c879;
-  font-size: 12px;
-  letter-spacing: 2px;
+  color: #1d1d1b;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .reel h2 {
-  margin: 12px 0 30px;
-  font-family: Georgia, serif;
-  font-size: 34px;
+  margin: 6px 0 18px;
+  font-family: Arial, sans-serif;
+  font-size: 21px;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 1.2;
+  color: #d9574f;
 }
 
-.scene {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 60px;
+.reel-title {
+  position: absolute;
+  left: 50%;
+  top: 42px;
+  width: 100%;
+  transform: translateX(-50%);
+  z-index: 60;
+  text-align: center;
 }
 
-.cat-area,
-.chest-area {
-  min-height: 210px;
+.reel-title.opening-title {
+  top: 50%;
+  width: 360px;
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.reel-title.opening-title .eyebrow {
+  font-size: 32px;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.reel-title.opening-title h2 {
+  font-size: 25px;
+  line-height: 1.15;
+  margin: 10px 0 0;
+}
+
+
+/* DRAWING DATE */
+
+.drawing-date {
+  margin: 0;
+  margin-top: -2px;
+  color: #6b5a50;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.reel-title.opening-title .drawing-date {
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+/* OPENING LOGO */
+
+.opening-logo {
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  width: 125px;
+  height: auto;
+  transform: translateX(-50%);
+  z-index: 70;
+  pointer-events: none;
+}
+
+
+/* CAT SCENE */
+
+.shared-scene {
+  position: relative;
   display: flex;
-  flex-direction: column;
+  align-items: flex-end;
   justify-content: center;
-  padding: 15px;
-  border: 1px solid rgba(242, 200, 121, 0.5);
-  border-radius: 70px 70px 18px 18px;
-  background: rgba(0, 0, 0, 0.25);
+  min-height: 320px;
+  margin-top: 105px;
 }
 
-.cat-area p,
-.chest-area p {
-  margin: 5px 0;
-  font-size: 13px;
+/*
+  IMPORTANT:
+  cat-wrap always stays 260px wide.
+  Changing the cat photograph will therefore NOT resize
+  the magic scene or move the other elements.
+*/
+
+.cat-wrap {
+  position: relative;
+  z-index: 2;
+  width: 260px;
+  height: 300px;
+  flex: 0 0 260px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
-.cat-area strong {
-  color: #f2c879;
+
+/*
+  CAT ADJUSTMENT LAYER
+
+  JavaScript will zoom and vertically reposition this layer.
+  Because it is absolutely positioned, those adjustments
+  do not change the surrounding layout.
+*/
+
+.cat-adjustment-layer {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 260px;
+  height: 300px;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+  pointer-events: none;
+}
+
+.cat-photo {
+  margin: 0;
+}
+
+.scene-cat {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 260px;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+
+/* SUSPENSE TEXT */
+
+.suspense-text {
+  opacity: 0;
+  width: 340px;
+  margin: -5px auto 6px;
+  text-align: center;
+  color: #1d1d1b;
   font-family: Georgia, serif;
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 1.25;
+  letter-spacing: 1px;
 }
 
-.chest-area span {
-  font-size: 45px;
+.suspense-text.opening-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 330px;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  white-space: normal;
+  z-index: 15;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: bold;
+  text-align: center;
 }
 
-..reveal {
-  margin-top: 40px;
+
+/* WINNER CARD */
+
+.reveal {
+  opacity: 0;
+  visibility: hidden;
+  width: 320px;
+  margin: -6px auto 0;
   padding: 20px;
   border: 1px solid #f2c879;
   border-radius: 14px;
   background: rgba(0, 0, 0, 0.45);
-  width: 100%;
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
+}
+
+.reveal.show {
+  opacity: 1;
+  visibility: visible;
 }
 
 .reveal p {
@@ -160,111 +321,201 @@ header p {
   color: #f2c879;
   font-family: Georgia, serif;
   font-size: 27px;
-}.cat-photo {
-  width: 145px;
-  height: 145px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  margin: 0 auto 10px;
-  border: 3px solid #f2c879;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
-}.chest-photo {
-  width: 100%;
-  max-width: 170px;
-  height: 170px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 18px;
-  border: 3px solid #f2c879;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
-}.shared-scene {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 18px;
-  min-height: 320px;
-  margin-top: 35px;
 }
 
-.cat-wrap,
-.chest-wrap {
-  border: 0;
-  background: transparent;
-  min-height: auto;
-  padding: 0;
+
+/* MAGIC PROPS */
+
+.magic-props {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.scene-cat {
-  width: 150px;
-  height: 150px;
-}
-
-.scene-chest {
-  width: 190px;
-  max-width: none;
-  height: auto;
-}
-
-.cat-wrap p {
-  margin: 8px 0 3px;
-  font-size: 13px;
-}
-
-.cat-wrap strong {
-  color: #f2c879;
-  font-family: Georgia, serif;
-  font-size: 24px;
-}.shared-scene {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0;
-  min-height: 300px;
-  margin-top: 35px;
-}
-
-.cat-wrap {
-  position: relative;
-  z-index: 2;
-  margin-right: -18px;
-}
-
-.chest-wrap {
-  position: relative;
-  z-index: 1;
-}
-
-.scene-cat {
-  width: 165px;
-  height: 165px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #f2c879;
-  box-shadow: 0 8px 25px rgba(0,0,0,.4);
-}
-
-.scene-chest {
-  width: 225px;
-  max-width: none;
-  height: auto;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.cat-wrap p,
-.cat-wrap strong {
-  position: relative;
-  z-index: 3;
-}.reveal {
+.magic-hat {
+  position: absolute;
+  width: 125px;
+  left: -55px;
+  top: -12px;
   opacity: 0;
-  visibility: hidden;
+  z-index: 10;
+  pointer-events: none;
 }
 
-.reveal.show {
-  opacity: 1;
-  visibility: visible;
+.magic-wand {
+  position: absolute;
+  width: 115px;
+  right: -15px;
+  top: -40px;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  transform: rotate(10deg);
 }
+
+
+/* MAGIC SWOOSH */
+
+.magic-ribbon {
+  position: absolute;
+  width: 235px;
+  height: 105px;
+  right: -5px;
+  top: -30px;
+  z-index: 18;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.magic-ribbon::before {
+  content: "";
+  position: absolute;
+  width: 215px;
+  height: 85px;
+  left: 5px;
+  top: 5px;
+  border-radius: 50%;
+  border-top: 12px solid rgba(255, 225, 110, 0.95);
+  border-right: 7px solid rgba(255, 135, 220, 0.85);
+  border-bottom: 0;
+  border-left: 0;
+  transform: rotate(-18deg);
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 225, 1))
+    drop-shadow(0 0 9px rgba(255, 215, 90, 0.95))
+    drop-shadow(0 0 18px rgba(255, 110, 215, 0.8));
+}
+
+.magic-ribbon::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 68px;
+  left: 16px;
+  top: 13px;
+  border-radius: 50%;
+  border-top: 3px solid rgba(255, 255, 245, 0.95);
+  border-right: 2px solid rgba(255, 210, 245, 0.8);
+  border-bottom: 0;
+  border-left: 0;
+  transform: rotate(-18deg);
+  filter:
+    drop-shadow(0 0 4px rgba(255, 255, 235, 1))
+    drop-shadow(0 0 8px rgba(255, 210, 110, 0.9));
+}
+
+
+/* MAGIC PARTICLES */
+
+.magic-particle {
+  position: absolute;
+  z-index: 30;
+  pointer-events: none;
+  font-size: 22px;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(255, 215, 90, 0.9));
+}
+
+.magic-particle.sparkle {
+  color: #ffd76a;
+}
+
+.magic-particle.star {
+  color: #fff4b8;
+}
+
+
+/* MAGIC POOF */
+
+.magic-poof {
+  position: absolute;
+  left: 50%;
+  bottom: 42px;
+  width: 300px;
+  height: 150px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+}
+
+.magic-poof::before,
+.magic-poof::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 245, 235, 0.9) 30%,
+      rgba(255, 210, 225, 0.65) 58%,
+      rgba(255, 255, 255, 0) 76%
+    );
+  filter: blur(6px);
+}
+
+.magic-poof::before {
+  width: 220px;
+  height: 110px;
+  left: 40px;
+  top: 25px;
+}
+
+.magic-poof::after {
+  width: 170px;
+  height: 95px;
+  left: 75px;
+  top: 5px;
+}
+
+/* INSTRUCTIONS */
+
+.instructions {
+  width: min(760px, calc(100% - 80px));
+  margin: 22px auto 0;
+  border: 1px solid #d8c5b5;
+  border-radius: 10px;
+  background: #fffaf5;
+  overflow: hidden;
+}
+
+.instructions summary {
+  padding: 15px 20px;
+  color: #be1e2d;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.instructions summary:hover {
+  background: #f8eee7;
+}
+
+.instructions-content {
+  padding: 2px 25px 22px;
+  color: #3d302a;
+  line-height: 1.55;
+}
+
+.instructions-content ol {
+  margin: 10px 0 20px;
+  padding-left: 24px;
+}
+
+.instructions-content li {
+  margin-bottom: 8px;
+}
+
+.instructions-notes {
+  padding: 12px 16px;
+  border-left: 4px solid #be1e2d;
+  background: #f8eee7;
+  border-radius: 4px;
+}
+
+.instructions-notes p {
+  margin: 6px 0;
+}
+
