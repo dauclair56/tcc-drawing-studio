@@ -21,6 +21,12 @@ const reelTitle = document.getElementById("reelTitle");
 const openingLogo = document.getElementById("openingLogo");
 const drawingDate = document.getElementById("drawingDate");
 const drawingDateDisplay = document.getElementById("drawingDateDisplay");
+const mainTitle = document.getElementById("mainTitle");
+const openingLine = document.getElementById("openingLine");
+const catIntroduction = document.getElementById("catIntroduction");
+const magicQuestion = document.getElementById("magicQuestion");
+const winnerLabel = document.getElementById("winnerLabel");
+const congratulationsText = document.getElementById("congratulationsText");
 const reelMusic = document.getElementById("reelMusic");
 const reel = document.querySelector(".reel");
 const RECORDING_DURATION = 32000;
@@ -74,9 +80,20 @@ function formatWinnerName(fullName) {
 
   return `${firstName} ${lastInitial}.`;
 }
+function fillTemplate(text) {
+  const cat = catName.value.trim() || "today's featured cat";
+  const winner = formatWinnerName(winnerName.value || "Winner");
 
+  return text
+    .replaceAll("[CAT]", cat)
+    .replaceAll("[WINNER]", winner);
+}
 
 function updateDrawing() {
+  
+  suspenseText.textContent =
+  document.getElementById("openingLine")?.value ||
+  "Did you know our cats are magical?!";
 
   reelMusic.pause();
   reelMusic.currentTime = 0;
@@ -222,7 +239,7 @@ magicWand.style.opacity = "0";
     suspenseText.classList.remove("opening-text");
 
     suspenseText.textContent =
-      `This is ${catName.value || "today's featured cat"}, who can show you what we mean in today's drawing.`;
+  fillTemplate(catIntroduction.value);
 
     catImage.animate(
       [
@@ -258,7 +275,7 @@ magicWand.style.opacity = "0";
   setTimeout(() => {
 
     suspenseText.textContent =
-      `${catName.value || "Today's Cat"}, are you ready to work some magic and choose today's winner?`;
+  fillTemplate(magicQuestion.value);
 
   }, 15000);
 

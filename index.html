@@ -83,16 +83,75 @@
         >
       </label>
 
+<label>
+  Drawing Date
+  <input
+    id="drawingDate"
+    type="text"
+    value="September 1, 2026"
+  >
+</label>
 
-      <label>
-        Drawing Date
-        <input
-          id="drawingDate"
-          type="text"
-          value="September 1, 2026"
-        >
-      </label>
+<details class="text-customization">
 
+  <summary>Customize Wording</summary>
+
+  <div class="text-customization-fields">
+
+    <label>
+      Main Title
+      <input
+        id="mainTitle"
+        type="text"
+        value="Calendar Raffle Drawing"
+      >
+    </label>
+
+    <label>
+      Opening Line
+      <input
+        id="openingLine"
+        type="text"
+        value="Did you know our cats are magical?!"
+      >
+    </label>
+
+    <label>
+      Cat Introduction
+      <textarea id="catIntroduction">This is [CAT], who can show you what we mean in today's drawing.</textarea>
+    </label>
+
+    <label>
+      Magic Question
+      <textarea id="magicQuestion">[CAT], are you ready to work some magic and choose today's winner?</textarea>
+    </label>
+
+    <label>
+      Winner Label
+      <input
+        id="winnerLabel"
+        type="text"
+        value="Today's Winner"
+      >
+    </label>
+
+    <label>
+      Congratulations
+      <input
+        id="congratulationsText"
+        type="text"
+        value="Congratulations, [WINNER]!"
+      >
+    </label>
+
+    <p class="placeholder-help">
+      Use <strong>[CAT]</strong> wherever you want the featured cat's name
+      and <strong>[WINNER]</strong> wherever you want the winner's name.
+    </p>
+
+  </div>
+
+</details>
 
       <button id="previewButton">
         Preview Drawing
