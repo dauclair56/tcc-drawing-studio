@@ -22,10 +22,12 @@ const openingLogo = document.getElementById("openingLogo");
 const drawingDate = document.getElementById("drawingDate");
 const drawingDateDisplay = document.getElementById("drawingDateDisplay");
 const mainTitle = document.getElementById("mainTitle");
+const mainTitleDisplay = document.getElementById("mainTitleDisplay");
 const openingLine = document.getElementById("openingLine");
 const catIntroduction = document.getElementById("catIntroduction");
 const magicQuestion = document.getElementById("magicQuestion");
 const winnerLabel = document.getElementById("winnerLabel");
+const winnerLabelDisplay = document.getElementById("winnerLabelDisplay");
 const congratulationsText = document.getElementById("congratulationsText");
 const reelMusic = document.getElementById("reelMusic");
 const reel = document.querySelector(".reel");
@@ -95,6 +97,9 @@ function updateDrawing() {
   document.getElementById("openingLine")?.value ||
   "Did you know our cats are magical?!";
 
+ mainTitleDisplay.textContent =
+  mainTitle.value || "Calendar Raffle Drawing";
+  
   reelMusic.pause();
   reelMusic.currentTime = 0;
   reelMusic.volume = 1;
@@ -190,6 +195,9 @@ function updateDrawing() {
 
   prizeDisplay.textContent =
     prizeName.value || "Prize";
+
+    winnerLabelDisplay.textContent =
+  winnerLabel.value || "Today's Winner";
 
   reveal.classList.remove("show");
   reveal.style.opacity = "0";
@@ -691,8 +699,8 @@ magicWand.style.opacity = "0";
         winnerParagraph.style.display = "none";
       }
 
-      winnerDisplay.textContent =
-        `Congratulations, ${formatWinnerName(winnerName.value || "Winner")}!`;
+     winnerDisplay.textContent =
+  fillTemplate(congratulationsText.value || "Congratulations, [WINNER]!");
 
 
       /* MOVE WINNER CARD TO CENTER AND ENLARGE */
