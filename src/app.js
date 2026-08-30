@@ -32,6 +32,25 @@ const congratulationsText = document.getElementById("congratulationsText");
 const reelMusic = document.getElementById("reelMusic");
 const reel = document.querySelector(".reel");
 const RECORDING_DURATION = 32000;
+// IMPORT DRAWING INFORMATION FROM RAFFLE MANAGER
+
+const raffleParams = new URLSearchParams(window.location.search);
+
+const importedWinner = raffleParams.get("winner");
+const importedPrize = raffleParams.get("prize");
+const importedDate = raffleParams.get("date");
+
+if (importedWinner) {
+  winnerName.value = importedWinner;
+}
+
+if (importedPrize) {
+  prizeName.value = importedPrize;
+}
+
+if (importedDate) {
+  drawingDate.value = importedDate;
+}
 
 function updateCatAdjustment() {
   const scale = Number(catSize.value) / 100;
