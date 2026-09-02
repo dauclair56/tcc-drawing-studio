@@ -1111,50 +1111,8 @@ if (
   CONVERT WEBM RECORDING TO MP4
 */
 
-downloadButton.textContent = "Converting to MP4...";
-
-const { createFFmpeg, fetchFile } = FFmpeg;
-
-const ffmpeg = createFFmpeg({
-  log: false
-});
-
-await ffmpeg.load();
-
-ffmpeg.FS(
-  "writeFile",
-  "input.webm",
-  await fetchFile(blob)
-);
-
-await ffmpeg.run(
-  "-i", "input.webm",
-  "-c:v", "libx264",
-  "-preset", "veryfast",
-  "-crf", "23",
-  "-c:a", "aac",
-  "-b:a", "192k",
-  "-movflags", "+faststart",
-  "output.mp4"
-);
-
-const mp4Data =
-  ffmpeg.FS(
-    "readFile",
-    "output.mp4"
-  );
-
-const mp4Blob =
-  new Blob(
-    [mp4Data.buffer],
-    {
-      type: "video/mp4"
-    }
-  );
-
 const url =
-  URL.createObjectURL(mp4Blob);
-
+  URL.createObjectURL(blob);
 
         const link =
           document.createElement("a");
