@@ -1130,8 +1130,13 @@ if (!mimeType) {
 
         link.href = url;
 
-        link.download =
-          `TCC-Calendar-Raffle-${safeDate}.webm`;
+        const fileExtension =
+  mimeType.startsWith("video/mp4")
+    ? "mp4"
+    : "webm";
+
+link.download =
+  `TCC-Calendar-Raffle-${safeDate}.${fileExtension}`;
 
 
         document.body.appendChild(link);
