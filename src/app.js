@@ -110,7 +110,68 @@ function fillTemplate(text) {
     .replaceAll("[WINNER]", winner);
 }
 
+function resetDrawingVisuals() {
+
+  // Cancel every animation left over from the previous preview/recording.
+  reel.getAnimations({ subtree: true }).forEach(animation => {
+    animation.cancel();
+  });
+
+  // Remove any leftover magic particles or sparkles.
+  catWrap.querySelectorAll(".magic-particle").forEach(particle => {
+    particle.remove();
+  });
+
+  // Restore the suspense text to its opening state.
+  suspenseText.classList.add("opening-text");
+  suspenseText.style.opacity = "";
+
+  // Restore the winner card to its original position and appearance.
+  reveal.classList.remove("show");
+  reveal.style.opacity = "0";
+  reveal.style.visibility = "hidden";
+  reveal.style.position = "";
+  reveal.style.left = "";
+  reveal.style.top = "";
+  reveal.style.margin = "";
+  reveal.style.zIndex = "";
+  reveal.style.transform = "";
+
+  // Restore the prize line that gets hidden on the final screen.
+  const winnerParagraph = reveal.querySelector("p");
+  if (winnerParagraph) {
+    winnerParagraph.style.display = "";
+  }
+
+  // Restore the opening logo.
+  openingLogo.style.display = "block";
+  openingLogo.style.opacity = "1";
+
+  // Restore the title.
+  reelTitle.style.position = "";
+  reelTitle.style.left = "";
+  reelTitle.style.top = "";
+  reelTitle.style.width = "";
+  reelTitle.style.transform = "";
+  reelTitle.style.opacity = "";
+  reelTitle.classList.add("opening-title");
+
+  // Restore the cat, hat and wand for a fresh animation.
+  catImage.style.opacity = "0";
+  magicHat.style.transition = "none";
+  magicWand.style.transition = "none";
+  magicHat.style.opacity = "0";
+  magicWand.style.opacity = "0";
+
+  // Stop and rewind the preview music.
+  reelMusic.pause();
+  reelMusic.currentTime = 0;
+  reelMusic.volume = 1;
+}
+
 function updateDrawing() {
+
+  resetDrawingVisuals();
   
   suspenseText.textContent =
   document.getElementById("openingLine")?.value ||
