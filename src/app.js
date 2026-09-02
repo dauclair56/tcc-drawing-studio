@@ -1033,32 +1033,25 @@ async function recordAndDownloadReel() {
         ...audioDestination.stream.getAudioTracks()
       ]);
 
-
-    /*
-  PREFER MP4 FOR SOCIAL MEDIA
+/*
+  RECORD IN WEBM
+  The completed recording will be converted to MP4 before download.
 */
 
-let mimeType = "";
+let mimeType = "video/webm";
 
-const preferredTypes = [
-  'video/mp4;codecs="avc1.424028,mp4a.40.2"',
-  "video/mp4",
-  "video/webm;codecs=vp9,opus",
-  "video/webm;codecs=vp8,opus",
-  "video/webm"
-];
-
-for (const type of preferredTypes) {
-  if (MediaRecorder.isTypeSupported(type)) {
-    mimeType = type;
-    break;
-  }
-}
-
-if (!mimeType) {
-  throw new Error(
-    "This browser does not support a usable recording format."
-  );
+if (
+  MediaRecorder.isTypeSupported(
+    "video/webm;codecs=vp9,opus"
+  )
+) {
+  mimeType = "video/webm;codecs=vp9,opus";
+} else if (
+  MediaRecorder.isTypeSupported(
+    "video/webm;codecs=vp8,opus"
+  )
+) {
+  mimeType = "video/webm;codecs=vp8,opus";
 }
 
 
