@@ -1035,30 +1035,31 @@ async function recordAndDownloadReel() {
 
 
     /*
-      BEST AVAILABLE WEBM FORMAT
-    */
+  PREFER MP4 FOR SOCIAL MEDIA
+*/
 
-    let mimeType =
-      "video/webm";
+let mimeType = "";
 
-    if (
-      MediaRecorder.isTypeSupported(
-        "video/webm;codecs=vp9,opus"
-      )
-    ) {
+const preferredTypes = [
+  'video/mp4;codecs="avc1.424028,mp4a.40.2"',
+  "video/mp4",
+  "video/webm;codecs=vp9,opus",
+  "video/webm;codecs=vp8,opus",
+  "video/webm"
+];
 
-      mimeType =
-        "video/webm;codecs=vp9,opus";
+for (const type of preferredTypes) {
+  if (MediaRecorder.isTypeSupported(type)) {
+    mimeType = type;
+    break;
+  }
+}
 
-    } else if (
-      MediaRecorder.isTypeSupported(
-        "video/webm;codecs=vp8,opus"
-      )
-    ) {
-
-      mimeType =
-        "video/webm;codecs=vp8,opus";
-    }
+if (!mimeType) {
+  throw new Error(
+    "This browser does not support a usable recording format."
+  );
+}
 
 
     const recorder =
