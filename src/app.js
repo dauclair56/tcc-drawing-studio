@@ -1034,24 +1034,17 @@ async function recordAndDownloadReel() {
       ]);
 
 /*
-  RECORD IN WEBM
-  The completed recording will be converted to MP4 before download.
+  RECORD DIRECTLY TO MP4
+  H.264 video + AAC audio for social media compatibility.
 */
 
-let mimeType = "video/webm";
+const mimeType =
+  'video/mp4;codecs="avc1.42E01E,mp4a.40.2"';
 
-if (
-  MediaRecorder.isTypeSupported(
-    "video/webm;codecs=vp9,opus"
-  )
-) {
-  mimeType = "video/webm;codecs=vp9,opus";
-} else if (
-  MediaRecorder.isTypeSupported(
-    "video/webm;codecs=vp8,opus"
-  )
-) {
-  mimeType = "video/webm;codecs=vp8,opus";
+if (!MediaRecorder.isTypeSupported(mimeType)) {
+  throw new Error(
+    "MP4 recording is not supported by this browser."
+  );
 }
 
 
