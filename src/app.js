@@ -32,6 +32,31 @@ const congratulationsText = document.getElementById("congratulationsText");
 const reelMusic = document.getElementById("reelMusic");
 const reel = document.querySelector(".reel");
 const RECORDING_DURATION = 32000;
+let drawingTimeouts = [];
+let drawingIntervals = [];
+
+function scheduleDrawingTimeout(callback, delay) {
+  const timeoutId = setTimeout(() => {
+    drawingTimeouts = drawingTimeouts.filter(id => id !== timeoutId);
+    callback();
+  }, delay);
+
+  drawingTimeouts.push(timeoutId);
+  return timeoutId;
+}
+
+function scheduleDrawingInterval(callback, delay) {
+  const intervalId = setInterval(callback, delay);
+  drawingIntervals.push(intervalId);
+  return intervalId;
+}
+
+function clearDrawingSchedule() {
+  drawingTimeouts.forEach(clearTimeout);
+  drawingIntervals.forEach(clearInterval);
+  drawingTimeouts = [];
+  drawingIntervals = [];
+}
 // IMPORT DRAWING INFORMATION FROM RAFFLE MANAGER
 
 const raffleParams = new URLSearchParams(window.location.search);
@@ -124,6 +149,9 @@ function formatFinalCongratulations(text) {
 
 function resetDrawingVisuals() {
 
+  // Stop delayed steps from a previous preview before starting a new run.
+  clearDrawingSchedule();
+
   // Cancel every animation left over from the previous preview/recording.
   reel.getAnimations({ subtree: true }).forEach(animation => {
     animation.cancel();
@@ -213,7 +241,7 @@ function updateDrawing() {
 
   /* OPENING LOGO + TITLE SWOOP */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     openingLogo.animate(
       [
@@ -307,7 +335,7 @@ magicWand.style.opacity = "0";
 
   /* OPENING SUSPENSE TEXT */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     suspenseText.animate(
       [
@@ -326,7 +354,7 @@ magicWand.style.opacity = "0";
 
   /* HAT APPEARS */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
     magicHat.style.transition = "opacity 1.5s ease";
     magicHat.style.opacity = "1";
   }, 7500);
@@ -334,7 +362,7 @@ magicWand.style.opacity = "0";
 
   /* CAT APPEARS + SECOND SUSPENSE LINE */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     suspenseText.classList.remove("opening-text");
 
@@ -364,7 +392,7 @@ magicWand.style.opacity = "0";
 
   /* WAND APPEARS */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
     magicWand.style.transition = "opacity 1.5s ease";
     magicWand.style.opacity = "1";
   }, 11500);
@@ -372,7 +400,7 @@ magicWand.style.opacity = "0";
 
   /* MAGIC QUESTION */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     suspenseText.textContent =
   fillTemplate(magicQuestion.value);
@@ -382,7 +410,7 @@ magicWand.style.opacity = "0";
 
   /* HAT DANCE */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     magicHat.animate(
       [
@@ -406,7 +434,7 @@ magicWand.style.opacity = "0";
 
   /* HAT STAR BURSTS */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     function createMagicBurst() {
 
@@ -432,7 +460,7 @@ magicWand.style.opacity = "0";
 
       symbols.forEach((symbol, index) => {
 
-        setTimeout(() => {
+        scheduleDrawingTimeout(() => {
 
           const particle = document.createElement("span");
 
@@ -479,7 +507,7 @@ magicWand.style.opacity = "0";
             }
           );
 
-          setTimeout(() => {
+          scheduleDrawingTimeout(() => {
             particle.remove();
           }, 1500);
 
@@ -489,15 +517,15 @@ magicWand.style.opacity = "0";
 
     createMagicBurst();
 
-    setTimeout(createMagicBurst, 650);
-    setTimeout(createMagicBurst, 1300);
+    scheduleDrawingTimeout(createMagicBurst, 650);
+    scheduleDrawingTimeout(createMagicBurst, 1300);
 
   }, 18000);
 
 
   /* WAND SWOOSH */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     magicWand.animate(
       [
@@ -539,7 +567,7 @@ magicWand.style.opacity = "0";
 
   /* GLOWING RIBBON */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     magicRibbon.animate(
       [
@@ -583,7 +611,7 @@ magicWand.style.opacity = "0";
 
   /* WAND GLITTER */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     const path = [
       [215, 70],
@@ -602,7 +630,7 @@ magicWand.style.opacity = "0";
 
     path.forEach(([x, y], index) => {
 
-      setTimeout(() => {
+      scheduleDrawingTimeout(() => {
 
         for (let i = 0; i < 4; i++) {
 
@@ -670,7 +698,7 @@ magicWand.style.opacity = "0";
             }
           );
 
-          setTimeout(() => {
+          scheduleDrawingTimeout(() => {
             sparkle.remove();
           }, 1000);
         }
@@ -683,7 +711,7 @@ magicWand.style.opacity = "0";
 
   /* POOF + WINNER */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
     magicPoof.animate(
       [
@@ -720,7 +748,7 @@ magicWand.style.opacity = "0";
 
     /* FIRST WINNER REVEAL */
 
-    setTimeout(() => {
+    scheduleDrawingTimeout(() => {
 
       reveal.style.visibility = "visible";
       reveal.style.opacity = "1";
@@ -754,7 +782,7 @@ magicWand.style.opacity = "0";
 
     /* FINAL CELEBRATION SCREEN */
 
-    setTimeout(() => {
+    scheduleDrawingTimeout(() => {
 
       /* FADE EVERYTHING EXCEPT WINNER CARD */
 
@@ -854,9 +882,9 @@ magicWand.style.opacity = "0";
 
   /* FADE OUT MUSIC */
 
-  setTimeout(() => {
+  scheduleDrawingTimeout(() => {
 
-    const fadeMusic = setInterval(() => {
+    const fadeMusic = scheduleDrawingInterval(() => {
 
       if (reelMusic.volume > 0.05) {
         reelMusic.volume -= 0.05;
