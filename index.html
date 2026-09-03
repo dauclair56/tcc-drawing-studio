@@ -156,9 +156,32 @@
       <button id="previewButton">
         Preview Drawing
       </button>
+      <button
+        id="stopPreviewButton"
+        class="secondary-button"
+        disabled
+      >
+        Stop Preview
+      </button>
 <button id="downloadButton">
   Record & Download Reel
 </button>
+
+      <div class="preview-scrubber">
+        <label for="previewTimeline">
+          Preview Timeline
+          <span id="previewTimeDisplay">0:00 / 0:32</span>
+        </label>
+        <input
+          id="previewTimeline"
+          type="range"
+          min="0"
+          max="32"
+          step="0.1"
+          value="0"
+        >
+        <p>Drag to any point and leave it there while adjusting the cat.</p>
+      </div>
     </section>
     <details class="instructions">
   <summary>How to Use This Studio</summary>
@@ -190,7 +213,7 @@
 
       <li>
         <strong>Preview the drawing.</strong><br>
-        Click <strong>Preview Drawing</strong> to watch the complete drawing before recording it.
+        Click <strong>Preview Drawing</strong> to watch the complete drawing. Use <strong>Stop Preview</strong> to pause it, or drag the <strong>Preview Timeline</strong> to inspect a particular moment while adjusting the cat.
       </li>
 
       <li>
