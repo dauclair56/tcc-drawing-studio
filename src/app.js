@@ -1,5 +1,8 @@
 const catName = document.getElementById("catName");
 const catPhoto = document.getElementById("catPhoto");
+const leftPropPhoto = document.getElementById("leftPropPhoto");
+const rightPropPhoto = document.getElementById("rightPropPhoto");
+const reelMusicFile = document.getElementById("reelMusicFile");
 const catSize = document.getElementById("catSize");
 const catPosition = document.getElementById("catPosition");
 const winnerName = document.getElementById("winnerName");
@@ -40,6 +43,10 @@ let drawingTimeouts = [];
 let drawingIntervals = [];
 let previewProgressInterval = null;
 let previewStartedAt = 0;
+let leftPropObjectUrl = null;
+let rightPropObjectUrl = null;
+let musicObjectUrl = null;
+let activeMusicSource = reelMusic.getAttribute("src") || "assets/magictree.mp3";
 
 function formatPreviewTime(seconds) {
   return `0:${String(Math.floor(seconds)).padStart(2, "0")} / 0:32`;
@@ -116,6 +123,53 @@ magicWand.style.opacity = "1";
 
 updateCatAdjustment();
   }
+});
+
+leftPropPhoto.addEventListener("change", () => {
+  const file = leftPropPhoto.files[0];
+
+  if (!file) return;
+
+  if (leftPropObjectUrl) {
+    URL.revokeObjectURL(leftPropObjectUrl);
+  }
+
+  leftPropObjectUrl = URL.createObjectURL(file);
+  magicHat.src = leftPropObjectUrl;
+  magicHat.alt = file.name;
+  magicHat.style.opacity = "1";
+});
+
+rightPropPhoto.addEventListener("change", () => {
+  const file = rightPropPhoto.files[0];
+
+  if (!file) return;
+
+  if (rightPropObjectUrl) {
+    URL.revokeObjectURL(rightPropObjectUrl);
+  }
+
+  rightPropObjectUrl = URL.createObjectURL(file);
+  magicWand.src = rightPropObjectUrl;
+  magicWand.alt = file.name;
+  magicWand.style.opacity = "1";
+});
+
+reelMusicFile.addEventListener("change", () => {
+  const file = reelMusicFile.files[0];
+
+  if (!file) return;
+
+  reelMusic.pause();
+
+  if (musicObjectUrl) {
+    URL.revokeObjectURL(musicObjectUrl);
+  }
+
+  musicObjectUrl = URL.createObjectURL(file);
+  activeMusicSource = musicObjectUrl;
+  reelMusic.src = activeMusicSource;
+  reelMusic.load();
 });
 
 
@@ -1143,7 +1197,7 @@ async function recordAndDownloadReel() {
     await audioContext.resume();
 
     recordingMusic =
-      new Audio("assets/magictree.mp3");
+      new Audio(activeMusicSource);
 
     recordingMusic.preload = "auto";
     recordingMusic.volume = 1;
