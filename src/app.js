@@ -110,6 +110,18 @@ function fillTemplate(text) {
     .replaceAll("[WINNER]", winner);
 }
 
+function formatFinalCongratulations(text) {
+  const winner = formatWinnerName(winnerName.value || "Winner");
+  const wording = String(text || "Congratulations, [WINNER]!").trim();
+
+  if (/\[WINNER\]/i.test(wording)) {
+    return wording.replace(/\[WINNER\]/gi, winner);
+  }
+
+  const cleanWording = wording.replace(/[\s,;:.!?]+$/, "") || "Congratulations";
+  return `${cleanWording}, ${winner}!`;
+}
+
 function resetDrawingVisuals() {
 
   // Cancel every animation left over from the previous preview/recording.
@@ -779,8 +791,8 @@ magicWand.style.opacity = "0";
         winnerParagraph.style.display = "none";
       }
 
-     winnerDisplay.textContent =
-  fillTemplate(congratulationsText.value || "Congratulations, [WINNER]!");
+      winnerDisplay.textContent =
+        formatFinalCongratulations(congratulationsText.value);
 
 
       /* MOVE WINNER CARD TO CENTER AND ENLARGE */
