@@ -39,6 +39,33 @@
         >
       </label>
 
+      <label>
+        Left Magic Prop
+        <input
+          id="leftPropPhoto"
+          type="file"
+          accept="image/*"
+        >
+      </label>
+
+      <label>
+        Right Magic Prop
+        <input
+          id="rightPropPhoto"
+          type="file"
+          accept="image/*"
+        >
+      </label>
+
+      <label>
+        Reel Music
+        <input
+          id="reelMusicFile"
+          type="file"
+          accept="audio/*"
+        >
+      </label>
+
 
       <label>
         Cat Size
@@ -202,6 +229,11 @@
       </li>
 
       <li>
+        <strong>Choose optional magic props and music.</strong><br>
+        The existing hat, wand, and song remain the defaults. Use <strong>Left Magic Prop</strong>, <strong>Right Magic Prop</strong>, or <strong>Reel Music</strong> when you want to replace them for a particular reel.
+      </li>
+
+      <li>
         <strong>Adjust the cat photo.</strong><br>
         Use <strong>Cat Size</strong> and <strong>Cat Position</strong> to make sure the cat looks good in the drawing.
       </li>
@@ -312,14 +344,16 @@
             <div class="magic-props">
 
               <img
+                id="rightMagicProp"
                 src="assets/wand.png"
-                alt=""
+                alt="Right magic prop"
                 class="magic-wand"
               >
 
               <img
+                id="leftMagicProp"
                 src="assets/MagicianHat2.png"
-                alt=""
+                alt="Left magic prop"
                 class="magic-hat"
               >
 
