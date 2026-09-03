@@ -5,6 +5,7 @@ const catPosition = document.getElementById("catPosition");
 const winnerName = document.getElementById("winnerName");
 const prizeName = document.getElementById("prizeName");
 const winnerDisplay = document.getElementById("winnerDisplay");
+const finalWinnerDisplay = document.getElementById("finalWinnerDisplay");
 const prizeDisplay = document.getElementById("prizeDisplay");
 const previewButton = document.getElementById("previewButton");
 const downloadButton = document.getElementById("downloadButton");
@@ -183,6 +184,9 @@ function resetDrawingVisuals() {
     winnerParagraph.style.display = "";
   }
 
+  winnerDisplay.style.display = "";
+  finalWinnerDisplay.style.display = "none";
+
   // Restore the opening logo.
   openingLogo.style.display = "block";
   openingLogo.style.opacity = "1";
@@ -312,6 +316,11 @@ function updateDrawing() {
 
   winnerDisplay.textContent =
     formatWinnerName(winnerName.value || "Winner");
+
+  // Prepare the final wording before capture starts so recording only
+  // needs to reveal it, rather than rewrite text mid-recording.
+  finalWinnerDisplay.textContent =
+    formatFinalCongratulations(congratulationsText.value);
 
   prizeDisplay.textContent =
     prizeName.value || "Prize";
@@ -819,8 +828,8 @@ magicWand.style.opacity = "0";
         winnerParagraph.style.display = "none";
       }
 
-      winnerDisplay.textContent =
-        formatFinalCongratulations(congratulationsText.value);
+      winnerDisplay.style.display = "none";
+      finalWinnerDisplay.style.display = "block";
 
 
       /* MOVE WINNER CARD TO CENTER AND ENLARGE */
@@ -852,7 +861,7 @@ magicWand.style.opacity = "0";
 
       /* MAKE CONGRATULATIONS MORE PROMINENT */
 
-      winnerDisplay.animate(
+      finalWinnerDisplay.animate(
         [
           {
             transform: "scale(0.9)",

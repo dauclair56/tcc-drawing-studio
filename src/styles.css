@@ -323,6 +323,10 @@ header p {
   font-size: 27px;
 }
 
+.reveal .final-winner-display {
+  display: none;
+}
+
 
 /* MAGIC PROPS */
 
