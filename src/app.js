@@ -8,7 +8,10 @@ const winnerDisplay = document.getElementById("winnerDisplay");
 const finalWinnerDisplay = document.getElementById("finalWinnerDisplay");
 const prizeDisplay = document.getElementById("prizeDisplay");
 const previewButton = document.getElementById("previewButton");
+const stopPreviewButton = document.getElementById("stopPreviewButton");
 const downloadButton = document.getElementById("downloadButton");
+const previewTimeline = document.getElementById("previewTimeline");
+const previewTimeDisplay = document.getElementById("previewTimeDisplay");
 const reveal = document.getElementById("reveal");
 const suspenseText = document.getElementById("suspenseText");
 const catWrap = document.querySelector(".cat-wrap");
@@ -35,6 +38,19 @@ const reel = document.querySelector(".reel");
 const RECORDING_DURATION = 32000;
 let drawingTimeouts = [];
 let drawingIntervals = [];
+let previewProgressInterval = null;
+let previewStartedAt = 0;
+
+function formatPreviewTime(seconds) {
+  return `0:${String(Math.floor(seconds)).padStart(2, "0")} / 0:32`;
+}
+
+function clearPreviewProgress() {
+  if (previewProgressInterval !== null) {
+    clearInterval(previewProgressInterval);
+    previewProgressInterval = null;
+  }
+}
 
 function scheduleDrawingTimeout(callback, delay) {
   const timeoutId = setTimeout(() => {
@@ -152,6 +168,7 @@ function resetDrawingVisuals() {
 
   // Stop delayed steps from a previous preview before starting a new run.
   clearDrawingSchedule();
+  clearPreviewProgress();
 
   // Cancel every animation left over from the previous preview/recording.
   reel.getAnimations({ subtree: true }).forEach(animation => {
@@ -201,6 +218,7 @@ function resetDrawingVisuals() {
   reelTitle.classList.add("opening-title");
 
   // Restore the cat, hat and wand for a fresh animation.
+  catWrap.style.opacity = "";
   catImage.style.opacity = "0";
   magicHat.style.transition = "none";
   magicWand.style.transition = "none";
@@ -213,16 +231,126 @@ function resetDrawingVisuals() {
   reelMusic.volume = 1;
 }
 
-function updateDrawing() {
+function prepareDrawingText() {
+  suspenseText.textContent =
+    openingLine?.value || "Did you know our cats are magical?!";
+  mainTitleDisplay.textContent =
+    mainTitle.value || "Calendar Raffle Drawing";
+  drawingDateDisplay.textContent =
+    drawingDate.value || "September 1, 2026";
+  winnerDisplay.textContent =
+    formatWinnerName(winnerName.value || "Winner");
+  finalWinnerDisplay.textContent =
+    formatFinalCongratulations(congratulationsText.value);
+  prizeDisplay.textContent = prizeName.value || "Prize";
+  winnerLabelDisplay.textContent =
+    winnerLabel.value || "Today's Winner";
+}
+
+function showPreviewFrame(seconds) {
+  resetDrawingVisuals();
+  prepareDrawingText();
+
+  const time = Number(seconds);
+  previewTimeline.value = String(time);
+  previewTimeDisplay.textContent = formatPreviewTime(time);
+  stopPreviewButton.disabled = true;
+
+  if (time < 3) {
+    suspenseText.style.opacity = time >= 1 ? "1" : "0";
+    return;
+  }
+
+  openingLogo.style.display = "none";
+  reelTitle.classList.remove("opening-title");
+  reelTitle.style.position = "absolute";
+  reelTitle.style.left = "50%";
+  reelTitle.style.top = "42px";
+  reelTitle.style.width = "100%";
+  reelTitle.style.transform = "translateX(-50%)";
+
+  suspenseText.style.opacity = "1";
+
+  if (time >= 7.5) {
+    magicHat.style.opacity = "1";
+  }
+
+  if (time >= 9) {
+    suspenseText.classList.remove("opening-text");
+    suspenseText.textContent = fillTemplate(catIntroduction.value);
+    catImage.style.opacity = "1";
+  }
+
+  if (time >= 11.5) {
+    magicWand.style.opacity = "1";
+  }
+
+  if (time >= 15) {
+    suspenseText.textContent = fillTemplate(magicQuestion.value);
+  }
+
+  if (time >= 20.95) {
+    reveal.style.visibility = "visible";
+    reveal.style.opacity = "1";
+    reveal.classList.add("show");
+  }
+
+  if (time >= 23.4) {
+    reelTitle.style.opacity = "0";
+    suspenseText.style.opacity = "0";
+    catWrap.style.opacity = "0";
+
+    const winnerParagraph = reveal.querySelector("p");
+    if (winnerParagraph) {
+      winnerParagraph.style.display = "none";
+    }
+
+    winnerDisplay.style.display = "none";
+    finalWinnerDisplay.style.display = "block";
+    reveal.style.position = "absolute";
+    reveal.style.left = "50%";
+    reveal.style.top = "50%";
+    reveal.style.margin = "0";
+    reveal.style.zIndex = "100";
+    reveal.style.transform = "translate(-50%, -50%) scale(1.14)";
+  }
+}
+
+function stopPreview() {
+  clearDrawingSchedule();
+  clearPreviewProgress();
+  reel.getAnimations({ subtree: true }).forEach(animation => animation.pause());
+  reelMusic.pause();
+  stopPreviewButton.disabled = true;
+}
+
+function startPreviewProgress() {
+  previewStartedAt = performance.now();
+  previewTimeline.value = "0";
+  previewTimeDisplay.textContent = formatPreviewTime(0);
+  stopPreviewButton.disabled = false;
+
+  previewProgressInterval = setInterval(() => {
+    const elapsed = Math.min(
+      RECORDING_DURATION / 1000,
+      (performance.now() - previewStartedAt) / 1000
+    );
+
+    previewTimeline.value = String(elapsed);
+    previewTimeDisplay.textContent = formatPreviewTime(elapsed);
+
+    if (elapsed >= RECORDING_DURATION / 1000) {
+      clearPreviewProgress();
+      stopPreviewButton.disabled = true;
+    }
+  }, 100);
+}
+
+function updateDrawing(isRecording = false) {
 
   resetDrawingVisuals();
-  
-  suspenseText.textContent =
-  document.getElementById("openingLine")?.value ||
-  "Did you know our cats are magical?!";
 
- mainTitleDisplay.textContent =
-  mainTitle.value || "Calendar Raffle Drawing";
+  prepareDrawingText();
   
   reelMusic.pause();
   reelMusic.currentTime = 0;
@@ -305,28 +433,6 @@ function updateDrawing() {
 
   }, 3000);
 
-
-  /* UPDATE DRAWING DATE */
-
-  drawingDateDisplay.textContent =
-    drawingDate.value || "September 1, 2026";
-
-
-  /* PREPARE WINNER */
-
-  winnerDisplay.textContent =
-    formatWinnerName(winnerName.value || "Winner");
-
-  // Prepare the final wording before capture starts so recording only
-  // needs to reveal it, rather than rewrite text mid-recording.
-  finalWinnerDisplay.textContent =
-    formatFinalCongratulations(congratulationsText.value);
-
-  prizeDisplay.textContent =
-    prizeName.value || "Prize";
-
-    winnerLabelDisplay.textContent =
-  winnerLabel.value || "Today's Winner";
 
   reveal.classList.remove("show");
   reveal.style.opacity = "0";
@@ -908,17 +1014,29 @@ magicWand.style.opacity = "0";
 
   }, 28000);
 
+  if (!isRecording) {
+    startPreviewProgress();
+  }
 }
 
 
 updateCatAdjustment();
 
-previewButton.addEventListener("click", updateDrawing);
+previewButton.addEventListener("click", () => updateDrawing(false));
+stopPreviewButton.addEventListener("click", stopPreview);
+previewTimeline.addEventListener("input", () => {
+  showPreviewFrame(previewTimeline.value);
+});
 
 async function recordAndDownloadReel() {
 
+  // End any preview immediately, before the browser opens its tab picker.
+  // This prevents preview events from changing the reel during setup.
+  stopPreview();
   downloadButton.disabled = true;
   previewButton.disabled = true;
+  stopPreviewButton.disabled = true;
+  previewTimeline.disabled = true;
   downloadButton.textContent = "Choose This Tab...";
 
   let displayStream = null;
@@ -1214,6 +1332,7 @@ const url =
 
         downloadButton.disabled = false;
         previewButton.disabled = false;
+        previewTimeline.disabled = false;
 
         downloadButton.textContent =
           "Record & Download Reel";
@@ -1344,7 +1463,7 @@ const url =
       which is what you hear from your speakers.
     */
 
-    updateDrawing();
+    updateDrawing(true);
 
 
     /*
@@ -1444,6 +1563,7 @@ const url =
 
     downloadButton.disabled = false;
     previewButton.disabled = false;
+    previewTimeline.disabled = false;
 
     downloadButton.textContent =
       "Record & Download Reel";

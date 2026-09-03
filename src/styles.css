@@ -77,6 +77,44 @@ header p {
   background: #991725;
 }
 
+.controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.controls .secondary-button {
+  background: #6b5a50;
+}
+
+.controls .secondary-button:hover:not(:disabled) {
+  background: #4f4038;
+}
+
+.preview-scrubber {
+  flex: 1 1 100%;
+  padding: 14px 16px;
+  border: 1px solid #e1cdbb;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.preview-scrubber label {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls .preview-scrubber input {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.preview-scrubber p {
+  margin: 6px 0 0;
+  color: #6b5a50;
+  font-size: 13px;
+}
+
 
 /* REEL */
 
