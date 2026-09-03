@@ -287,6 +287,7 @@ header p {
   position: absolute;
   left: 50%;
   bottom: 0;
+  z-index: 2;
   width: 260px;
   height: 300px;
   transform: translateX(-50%);
@@ -386,26 +387,31 @@ header p {
 .magic-props {
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
 .magic-hat {
   position: absolute;
   width: 125px;
+  height: 105px;
+  object-fit: contain;
   left: -55px;
   top: -12px;
   opacity: 0;
-  z-index: 10;
+  z-index: 1;
   pointer-events: none;
 }
 
 .magic-wand {
   position: absolute;
   width: 115px;
+  height: 100px;
+  object-fit: contain;
   right: -15px;
   top: -40px;
   opacity: 0;
-  z-index: 10;
+  z-index: 1;
   pointer-events: none;
   transform: rotate(10deg);
 }

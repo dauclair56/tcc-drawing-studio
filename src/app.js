@@ -2,6 +2,8 @@ const catName = document.getElementById("catName");
 const catPhoto = document.getElementById("catPhoto");
 const leftPropPhoto = document.getElementById("leftPropPhoto");
 const rightPropPhoto = document.getElementById("rightPropPhoto");
+const leftPropSize = document.getElementById("leftPropSize");
+const rightPropSize = document.getElementById("rightPropSize");
 const reelMusicFile = document.getElementById("reelMusicFile");
 const showSparkles = document.getElementById("showSparkles");
 const showMagicSwoosh = document.getElementById("showMagicSwoosh");
@@ -111,6 +113,16 @@ function updateCatAdjustment() {
     `translateX(-50%) translateY(${-position}px) scale(${scale})`;
 }
 
+function updatePropSizes() {
+  const leftScale = Number(leftPropSize.value) / 100;
+  const rightScale = Number(rightPropSize.value) / 100;
+
+  magicHat.style.width = `${125 * leftScale}px`;
+  magicHat.style.height = `${105 * leftScale}px`;
+  magicWand.style.width = `${115 * rightScale}px`;
+  magicWand.style.height = `${100 * rightScale}px`;
+}
+
 
 catPhoto.addEventListener("change", () => {
   const file = catPhoto.files[0];
@@ -154,6 +166,16 @@ rightPropPhoto.addEventListener("change", () => {
   rightPropObjectUrl = URL.createObjectURL(file);
   magicWand.src = rightPropObjectUrl;
   magicWand.alt = file.name;
+  magicWand.style.opacity = "1";
+});
+
+leftPropSize.addEventListener("input", () => {
+  updatePropSizes();
+  magicHat.style.opacity = "1";
+});
+
+rightPropSize.addEventListener("input", () => {
+  updatePropSizes();
   magicWand.style.opacity = "1";
 });
 
@@ -1083,6 +1105,7 @@ magicWand.style.opacity = "0";
 
 
 updateCatAdjustment();
+updatePropSizes();
 
 previewButton.addEventListener("click", () => updateDrawing(false));
 stopPreviewButton.addEventListener("click", stopPreview);
