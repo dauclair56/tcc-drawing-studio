@@ -3,6 +3,8 @@ const catPhoto = document.getElementById("catPhoto");
 const leftPropPhoto = document.getElementById("leftPropPhoto");
 const rightPropPhoto = document.getElementById("rightPropPhoto");
 const reelMusicFile = document.getElementById("reelMusicFile");
+const showSparkles = document.getElementById("showSparkles");
+const showMagicSwoosh = document.getElementById("showMagicSwoosh");
 const catSize = document.getElementById("catSize");
 const catPosition = document.getElementById("catPosition");
 const winnerName = document.getElementById("winnerName");
@@ -605,6 +607,8 @@ magicWand.style.opacity = "0";
 
   scheduleDrawingTimeout(() => {
 
+    if (!showSparkles.checked) return;
+
     function createMagicBurst() {
 
       const symbols = [
@@ -738,6 +742,8 @@ magicWand.style.opacity = "0";
 
   scheduleDrawingTimeout(() => {
 
+    if (!showMagicSwoosh.checked) return;
+
     magicRibbon.animate(
       [
         {
@@ -781,6 +787,8 @@ magicWand.style.opacity = "0";
   /* WAND GLITTER */
 
   scheduleDrawingTimeout(() => {
+
+    if (!showSparkles.checked) return;
 
     const path = [
       [215, 70],
