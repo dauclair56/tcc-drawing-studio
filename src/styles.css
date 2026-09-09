@@ -416,6 +416,13 @@ header p {
   transform: rotate(10deg);
 }
 
+.reel.no-magic-props .magic-hat,
+.reel.no-magic-props .magic-wand,
+.reel.no-magic-props .magic-ribbon,
+.reel.no-magic-props .magic-particle {
+  display: none !important;
+}
+
 
 /* MAGIC SWOOSH */
 
