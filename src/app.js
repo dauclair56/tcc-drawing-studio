@@ -4,6 +4,7 @@ const leftPropPhoto = document.getElementById("leftPropPhoto");
 const rightPropPhoto = document.getElementById("rightPropPhoto");
 const leftPropSize = document.getElementById("leftPropSize");
 const rightPropSize = document.getElementById("rightPropSize");
+const showMagicProps = document.getElementById("showMagicProps");
 const reelMusicFile = document.getElementById("reelMusicFile");
 const showSparkles = document.getElementById("showSparkles");
 const showMagicSwoosh = document.getElementById("showMagicSwoosh");
@@ -123,6 +124,16 @@ function updatePropSizes() {
   magicWand.style.height = `${100 * rightScale}px`;
 }
 
+function updatePropVisibility() {
+  const propsAreVisible = showMagicProps.checked;
+
+  reel.classList.toggle("no-magic-props", !propsAreVisible);
+  leftPropPhoto.disabled = !propsAreVisible;
+  rightPropPhoto.disabled = !propsAreVisible;
+  leftPropSize.disabled = !propsAreVisible;
+  rightPropSize.disabled = !propsAreVisible;
+}
+
 
 catPhoto.addEventListener("change", () => {
   const file = catPhoto.files[0];
@@ -178,6 +189,8 @@ rightPropSize.addEventListener("input", () => {
   updatePropSizes();
   magicWand.style.opacity = "1";
 });
+
+showMagicProps.addEventListener("change", updatePropVisibility);
 
 reelMusicFile.addEventListener("change", () => {
   const file = reelMusicFile.files[0];
@@ -1106,6 +1119,7 @@ magicWand.style.opacity = "0";
 
 updateCatAdjustment();
 updatePropSizes();
+updatePropVisibility();
 
 previewButton.addEventListener("click", () => updateDrawing(false));
 stopPreviewButton.addEventListener("click", stopPreview);
