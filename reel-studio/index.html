@@ -11,8 +11,9 @@
 <section class="controls">
 <h2>Create a Reel</h2>
 <label>Reel category<select id="category"><option>Partner Spotlight</option><option>Adopt Me</option><option>Fundraising</option><option>Event</option><option>Volunteer / Foster</option><option>Thank You</option><option>Custom</option></select></label>
+<label>Cat's name<input id="catName" placeholder="Enter cat's name"></label>
 <label>Screen 1 heading<input id="heading" value="Partner Spotlight"></label>
-<label>Screen 1 caption<textarea id="caption1">We have an exciting new partnership to share!</textarea></label>
+<label>Screen 1 caption<textarea id="caption1">[CAT] has an exciting new partnership to share!</textarea></label>
 <label>Cat photo or video<input id="catMedia" type="file" accept="image/png,image/jpeg,video/*"></label>
 <div class="two"><label>Cat/media size<input id="catSize" type="range" min="55" max="145" value="100"></label><label>Vertical position<input id="catY" type="range" min="-100" max="100" value="0"></label></div>
 <fieldset><legend>Optional floating props</legend><label class="check"><input id="useProps" type="checkbox"> Use props</label><label>Left prop (PNG/JPG)<input id="prop1" type="file" accept="image/*"></label><label>Right prop (PNG/JPG)<input id="prop2" type="file" accept="image/*"></label><div class="two"><label>Left size<input id="prop1Size" type="range" min="35" max="170" value="100"></label><label>Right size<input id="prop2Size" type="range" min="35" max="170" value="100"></label></div></fieldset>
@@ -20,10 +21,10 @@
 <fieldset><legend>Screen 3</legend><label>Closing heading<input id="closingHeading" value="Thank you for supporting our cats!"></label><label>Call to action<textarea id="caption3">Learn more and support this partnership.</textarea></label></fieldset>
 <fieldset><legend>Look & sound</legend><div class="two"><label>Background 1<input id="color1" type="color" value="#fff7f3"></label><label>Background 2<input id="color2" type="color" value="#be1e2d"></label></div><label>Music<input id="musicFile" type="file" accept="audio/*"></label></fieldset>
 <div class="buttons"><button id="preview">Preview</button><button id="stop" class="secondary">Stop</button><button id="record">Record & Download</button></div>
-<p class="note">Three screens • cat/photo/video appears before optional props • no smoke effect on Screen 3.</p>
+<p class="note">Use <strong>[CAT]</strong> anywhere in the customized wording to insert the cat's name automatically. Three screens • cat/photo/video appears before optional props • no smoke effect on Screen 3.</p>
 </section>
 <aside class="preview-column"><div id="reel" class="reel">
-<section class="screen active" id="screen1"><img id="logo1" class="logo" src="../assets/TCClogo.png"><div class="title"><span>THE CAT CONNECTION</span><h2 id="headingOut">Partner Spotlight</h2></div><div class="media-box"><img id="catImg"><video id="catVideo" muted playsinline></video><img id="prop1Out" class="prop left"><img id="prop2Out" class="prop right"></div><p id="caption1Out" class="caption">We have an exciting new partnership to share!</p></section>
+<section class="screen active" id="screen1"><img id="logo1" class="logo" src="../assets/TCClogo.png"><div class="title"><span>THE CAT CONNECTION</span><h2 id="headingOut">Partner Spotlight</h2></div><div class="media-box"><img id="catImg"><video id="catVideo" muted playsinline></video><img id="prop1Out" class="prop left"><img id="prop2Out" class="prop right"></div><p id="caption1Out" class="caption">has an exciting new partnership to share!</p></section>
 <section class="screen" id="screen2"><img class="logo small" src="../assets/TCClogo.png"><div id="featureBox" class="feature-box"><p>Upload a partner logo, image, or PDF flyer</p></div><p id="caption2Out" class="caption bottom">Supporting The Cat Connection while you shop!</p></section>
 <section class="screen" id="screen3"><img class="logo" src="../assets/TCClogo.png"><h2 id="closingOut">Thank you for supporting our cats!</h2><p id="caption3Out" class="caption">Learn more and support this partnership.</p></section>
 </div><div class="screen-buttons"><button data-screen="0">1</button><button data-screen="1">2</button><button data-screen="2">3</button></div><div id="status">Screen 1</div></aside>
