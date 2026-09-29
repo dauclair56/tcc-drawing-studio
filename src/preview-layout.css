@@ -1,0 +1,56 @@
+/* Desktop editing layout: keep the reel preview visible while controls scroll. */
+@media (min-width: 1000px) {
+  .studio {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) 475px;
+    grid-template-rows: auto auto auto;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .studio > header {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .studio > .controls {
+    grid-column: 1;
+    grid-row: 2;
+    max-height: calc(100vh - 105px);
+    overflow-y: auto;
+    align-content: flex-start;
+    scrollbar-gutter: stable;
+  }
+
+  .studio > .instructions {
+    grid-column: 1;
+    grid-row: 3;
+    width: calc(100% - 80px);
+  }
+
+  .studio > .reel-stage {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    position: sticky;
+    top: 12px;
+    align-self: start;
+    padding: 24px 35px 35px 0;
+    z-index: 5;
+  }
+}
+
+/* On narrower screens retain the existing stacked layout. */
+@media (max-width: 999px) {
+  .studio {
+    display: block;
+  }
+
+  .controls {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .reel-stage {
+    position: static;
+  }
+}
