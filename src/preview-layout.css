@@ -1,6 +1,4 @@
-@import url("https://cdn.jsdelivr.net/gh/dauclair56/tcc-drawing-studio@e445c58da0328718380fc7a5edf149c70ed3f2bb/src/styles.css");
-
-/* Desktop editing layout: controls scroll independently while the full reel preview stays visible. */
+/* Desktop editing layout: keep the reel preview visible while controls scroll. */
 @media (min-width: 1000px) {
   .studio {
     display: grid;
@@ -9,7 +7,12 @@
     column-gap: 24px;
     align-items: start;
   }
-  .studio > header { grid-column: 1 / -1; grid-row: 1; }
+
+  .studio > header {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
   .studio > .controls {
     grid-column: 1;
     grid-row: 2;
@@ -18,11 +21,13 @@
     align-content: flex-start;
     scrollbar-gutter: stable;
   }
+
   .studio > .instructions {
     grid-column: 1;
     grid-row: 3;
     width: calc(100% - 80px);
   }
+
   .studio > .reel-stage {
     grid-column: 2;
     grid-row: 2 / span 2;
@@ -34,8 +39,18 @@
   }
 }
 
+/* On narrower screens retain the existing stacked layout. */
 @media (max-width: 999px) {
-  .studio { display: block; }
-  .controls { max-height: none; overflow: visible; }
-  .reel-stage { position: static; }
+  .studio {
+    display: block;
+  }
+
+  .controls {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .reel-stage {
+    position: static;
+  }
 }
