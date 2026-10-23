@@ -7,5 +7,5 @@
   "preview_urls": false,
   "vars": {"MODE": "staging", "PREPARE_REVIEWS_ENABLED": "false"},
   "triggers": {"crons": []},
-  "d1_databases": [{"binding": "DB", "database_name": "tcc-adoption-manager-staging", "database_id": "REPLACE_WITH_STAGING_DATABASE_ID", "migrations_dir": "migrations"}]
+  "d1_databases": [{"binding": "DB", "database_name": "tcc-adoption-manager-staging", "database_id": "bb93b182-ce0b-4a3f-958b-da769edcd945", "migrations_dir": "migrations"}]
 }
