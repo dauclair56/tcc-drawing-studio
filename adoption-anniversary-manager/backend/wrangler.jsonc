@@ -1,0 +1,11 @@
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "tcc-adoption-manager-api",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": {"MODE": "staging", "PREPARE_REVIEWS_ENABLED": "false"},
+  "triggers": {"crons": []},
+  "d1_databases": [{"binding": "DB", "database_name": "tcc-adoption-manager-staging", "database_id": "bb93b182-ce0b-4a3f-958b-da769edcd945", "migrations_dir": "migrations"}]
+}
